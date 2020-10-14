@@ -8,7 +8,7 @@ import smtplib
 
 print("Jarvis, avvio in corso..")
 
-master = "Luca"
+MASTER = "Luca"
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -22,14 +22,27 @@ def wishMe():
     hour = int(datetime.datetime.now().hour)
 
     if hour>=0 and hour<12:
-        speak("Buongiorno" + master)
-
+        speak("Buongiorno" + MASTER)
     elif hour>=12 and hour<18:
-        speak("Buonpomeriggio" + master)
-
+        speak("Buonpomeriggio" + MASTER)
     else:
-        speak("Buonasera" + master)
+        speak("Buonasera" + MASTER)
     
     speak("Sono Jarvis. Come posso aiutarti?")
 
+def takeCommand():
+    r = sr.Recognizer()
+    with sr.Microphone() as source:
+        print("In ascolto..")
+        audio = r.listen(source)
+    
+    try:
+        print("Riconoscimento..")
+        query = r.recognize_google(audio, language='it-IT')
+        print(f"Il padrone ha detto: {query}\n")
+
+    except Exception as e:
+        print("Ripetere, grazie.")
+
 wishMe()
+takeCommand()
