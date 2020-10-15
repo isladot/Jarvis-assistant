@@ -6,8 +6,9 @@ import wikipedia #pip install wikipedia
 import datetime
 import webbrowser
 import os
-import smtplib
 import json
+
+from services import speak as sp, wishme as wm
 
 with open('config.json', 'r') as config:
     data = json.load(config)
@@ -15,38 +16,24 @@ with open('config.json', 'r') as config:
 
 MASTER = data['master']
 
-engine = pyttsx3.init()
-voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+sp.speak("Jarvis, avvio in corso..")
+wm.wishMe(MASTER)
 
-def speak(text):
-    engine.say(text)
-    engine.runAndWait()
+from commands import handler as hlr
+##
+"""
+if 'aggiorna' and 'master' in query:
+    data['master'] = 'Giovanni'
+    with open('config.json', 'w') as config:
+        json.dump(data, config)
+        config.close()
 
-from wishme import wishMe
+elif 'apri youtube' in query:
+    url = 'youtube.com'
+    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+    webbrowser.get(chrome_path).open_new_tab(url)
 
-def takeCommand():
-    r = sr.Recognizer()
-    with sr.Microphone() as source:
-        print("In ascolto..")
-        audio = r.listen(source)
-    
-    try:
-        print("Riconoscimento..")
-        query = r.recognize_google(audio, language='it-IT')
-        print(f"Il padrone ha detto: {query}\n")
-
-    except Exception as e:
-        print("Ripetere, grazie.")
-        query = None
-
-    return query
-
-print("Jarvis, avvio in corso..")
-wishMe()
-#query = takeCommand()
-
-#data['master'] = 'Luca'
-#with open('config.json', 'w') as config:
-#    json.dump(data, config)
-#    config.close()
+elif 'che ore sono' in query:
+    strTime = datetime.datetime.now().strftime("%H:%M")
+    sp.speak(f'sono le {strTime}')
+"""
