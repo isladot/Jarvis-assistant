@@ -1,14 +1,19 @@
+#External Modules
 import pyttsx3 #pip install pyttsx3
 import speech_recognition as sr #pip install speechRecognition
-import datetime
 import wikipedia #pip install wikipedia
+#Internal Modules
+import datetime
 import webbrowser
 import os
 import smtplib
+import json
 
-print("Jarvis, avvio in corso..")
+with open("config.json", "r") as config:
+    data = json.load(config)
+    config.close()
 
-MASTER = "Luca"
+MASTER = data['master']
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -44,5 +49,6 @@ def takeCommand():
     except Exception as e:
         print("Ripetere, grazie.")
 
+print("Jarvis, avvio in corso..")
 wishMe()
-takeCommand()
+#takeCommand()
