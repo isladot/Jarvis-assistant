@@ -9,7 +9,7 @@ import os
 import smtplib
 import json
 
-with open("config.json", "r") as config:
+with open('config.json', 'r') as config:
     data = json.load(config)
     config.close()
 
@@ -23,17 +23,7 @@ def speak(text):
     engine.say(text)
     engine.runAndWait()
 
-def wishMe():
-    hour = int(datetime.datetime.now().hour)
-
-    if hour>=0 and hour<12:
-        speak("Buongiorno" + MASTER)
-    elif hour>=12 and hour<18:
-        speak("Buonpomeriggio" + MASTER)
-    else:
-        speak("Buonasera" + MASTER)
-    
-    speak("Sono Jarvis. Come posso aiutarti?")
+from wishme import wishMe
 
 def takeCommand():
     r = sr.Recognizer()
@@ -48,7 +38,15 @@ def takeCommand():
 
     except Exception as e:
         print("Ripetere, grazie.")
+        query = None
+
+    return query
 
 print("Jarvis, avvio in corso..")
 wishMe()
-#takeCommand()
+#query = takeCommand()
+
+#data['master'] = 'Luca'
+#with open('config.json', 'w') as config:
+#    json.dump(data, config)
+#    config.close()
