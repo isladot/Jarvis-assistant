@@ -1,7 +1,4 @@
 import json
-import time
-import datetime
-import webbrowser
 import speech_recognition as sr
 from services import speak as sp
 
@@ -30,18 +27,18 @@ def record_audio(ask = False):
             print(str(e))
         return query.lower()
 
+from commands.misc import name
+from commands.utils import time, search
 def respond(query):
     if 'what is your name' in query:
-        sp.speak('My name is Jarvis.')
+        name.name('Jarvis')
     if 'what time is it' in query:
-        strTime = datetime.datetime.now().strftime("%H:%M")
-        sp.speak(f'It\'s {strTime}')
+        time.time('%H:%M')
     if 'search' in query:
-        search = record_audio('What do you want to search?')
-        url = 'https://google.com/search?q=' + search
-        chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-        webbrowser.get(chrome_path).open_new_tab(url)
-        sp.speak('There are the results for ' + search)
+        if 'google' in query:
+            search.search('google')
+        if 'youtube' in query:
+            search.search('youtube')
     if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
         exit()
