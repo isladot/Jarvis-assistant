@@ -25,7 +25,7 @@ def watson_speak(text):
 import pyttsx3
 engine = pyttsx3.init('sapi5')
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[0].id)
+engine.setProperty('voice', voices[2].id)
 def speak(text):
     engine.say(text)
     engine.runAndWait()
@@ -36,7 +36,7 @@ import os
 import random
 from gtts import gTTS
 def google_speak(text):
-    tts = gTTS(text=text, lang='it')
+    tts = gTTS(text=text, lang='en')
     r = random.randint(1, 1000000)
     audio_file = 'audio-' + str(r) + '.mp3'
     tts.save(audio_file)
