@@ -15,9 +15,17 @@ def youtubeSearch(kw):
     webbrowser.get(chrome_path).open_new_tab(url)
     sp.speak('These are the results for ' + kw)
 
+def stackoverflowSearch(kw):
+    url = 'https://stackoverflow.com/search?q=' + kw
+    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+    webbrowser.get(chrome_path).open_new_tab(url)
+    sp.speak('These are the results for ' + kw)
+
+
 SEARCH_PATTERN = {
     re.compile("search on google for [\w\s]+"): lambda kw: googleSearch(kw),
-    re.compile("search on youtube for [\w\s]+"): lambda kw: youtubeSearch(kw)
+    re.compile("search on youtube for [\w\s]+"): lambda kw: youtubeSearch(kw),
+    re.compile("search on stackoverflow for [\w\s]+") : lambda kw: stackoverflowSearch(kw)
 }
 
 def main(query):
