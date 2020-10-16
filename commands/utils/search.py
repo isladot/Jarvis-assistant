@@ -23,6 +23,6 @@ SEARCH_PATTERN = {
 def main(query):
     for pattern, func in SEARCH_PATTERN.items():
         if pattern.match(query):
-            kw = query.split(' ').pop()
+            kw = query.split('for ').pop()
             func(kw)
             break
