@@ -1,8 +1,14 @@
+import json
 import time
 import datetime
 import webbrowser
 import speech_recognition as sr
 from services import speak as sp
+
+with open('.\\.\\config.json', 'r') as config:
+    data = json.load(config)
+    config.close()
+WAKE = data['wake']
 
 r = sr.Recognizer()
 
@@ -19,8 +25,8 @@ def record_audio(ask = False):
         query = ''
         try:
             query = r.recognize_google(audio, language='it-IT')
-        except sr.UnknownValueError:
-            sp.speak('Spiacente Signore, non ho capito bene.')
+        except Exception as e:
+            print('Errore: ' + str(e))
         except sr.RequestError:
             sp.speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
         return query.lower()
@@ -41,7 +47,10 @@ def respond(query):
         sp.watson_speak('Goodbye Sir.')
         exit()
 
-time.sleep(1)
-while 1:
-    query = record_audio()
-    respond(query)
+while True:
+    print('Listening')
+    audio = record_audio()
+    if audio.count(WAKE) > 0:
+        sp.speak('Eccomi Sir, come posso aiutarla?')
+        query = record_audio()
+        respond(query)
