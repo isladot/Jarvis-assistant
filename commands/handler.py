@@ -14,30 +14,30 @@ def there_exists(terms):
 def record_audio(ask = False):
     with sr.Microphone() as source:
         if ask:
-            sp.google_speak(ask)
+            sp.watson_speak(ask)
         audio = r.listen(source)
         query = ''
         try:
             query = r.recognize_google(audio, language='it-IT')
         except sr.UnknownValueError:
-            sp.google_speak('Spiacente padrone, non ho capito bene.')
+            sp.watson_speak('Spiacente Signore, non ho capito bene.')
         except sr.RequestError:
-            sp.google_speak('Spiacente padrone, il mio sistema non funziona correttamente.')
+            sp.watson_speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
         return query.lower()
 
 def respond(query):
     if 'come ti chiami' in query:
-        sp.google_speak('Mi chiamo Jarvis')
+        sp.watson_speak('Mi chiamo Jarvis')
     if 'che ore sono' in query:
         strTime = datetime.datetime.now().strftime("%H:%M")
-        sp.google_speak(f'sono le {strTime}')
+        sp.watson_speak(f'sono le {strTime}')
     if 'cerca' in query:
         search = record_audio('Per cosa vorresti effettuare la ricerca?')
         url = 'https://google.com/search?q=' + search
         chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
         webbrowser.get(chrome_path).open_new_tab(url)
     if there_exists(['stop', 'exit', 'chiudi']):
-        sp.google_speak('Arrivederci padrone.')
+        sp.watson_speak('Goodbye Sir.')
         exit()
 
 time.sleep(1)
