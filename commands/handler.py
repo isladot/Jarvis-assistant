@@ -10,7 +10,7 @@ with open('.\\.\\config.json', 'r') as config:
     config.close()
 WAKE = data['wake']
 
-def there_exists(terms):
+def there_exists(terms, query):
     for term in terms:
         if term in query:
             return True
@@ -26,6 +26,8 @@ def record_audio(ask = False):
             query = r.recognize_google(audio)
         except sr.RequestError:
             sp.speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
+        except Exception as e:
+            print(str(e))
         return query.lower()
 
 def respond(query):
@@ -40,16 +42,24 @@ def respond(query):
         chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
         webbrowser.get(chrome_path).open_new_tab(url)
         sp.speak('There are the results for ' + search)
-    if there_exists(['exit', 'stop']):
+    if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
         exit()
 
-while True:
+def singleCommandHandler():
     print('Listening')
-    audio = record_audio()
-    
-    if audio.count(WAKE) > 0:
-        sp.watson_speak('Hi Sir, how can i help you?')
-        query = record_audio()
-        print(query)
-        respond(query)
+    query = record_audio()
+    print(query)
+    respond(query)
+
+
+def bgCommandsHandler():
+    while True:
+        print('Listening')
+        audio = record_audio()
+        
+        if audio.count(WAKE) > 0:
+            sp.watson_speak('Hi Sir, how can i help you?')
+            query = record_audio()
+            print(query)
+            respond(query)
