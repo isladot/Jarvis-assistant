@@ -35,10 +35,7 @@ def respond(query):
     if 'what time is it' in query:
         time.time('%H:%M')
     if 'search' in query:
-        if 'google' in query:
-            search.search('google')
-        if 'youtube' in query:
-            search.search('youtube')
+        search.main(query)
     if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
         exit()
