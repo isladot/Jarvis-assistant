@@ -41,7 +41,6 @@ def respond(query):
         exit()
 
 time.sleep(1)
-sp.google_speak('Come posso aiutarti?')
 while 1:
     query = record_audio()
     respond(query)

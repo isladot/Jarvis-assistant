@@ -15,9 +15,10 @@ with open('config.json', 'r') as config:
     config.close()
 
 MASTER = data['master']
+TITLE = data['title']
 
-sp.google_speak("Jarvis, avvio in corso..")
-wm.wishMe(MASTER)
+print("Jarvis, avvio in corso..")
+wm.wishMe(TITLE)
 
 from commands import handler as hlr
 ##
