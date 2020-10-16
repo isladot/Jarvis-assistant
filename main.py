@@ -16,7 +16,7 @@ with open('config.json', 'r') as config:
 
 MASTER = data['master']
 
-sp.speak("Jarvis, avvio in corso..")
+sp.google_speak("Jarvis, avvio in corso..")
 wm.wishMe(MASTER)
 
 from commands import handler as hlr
