@@ -1,46 +1,59 @@
-import time
-import datetime
-import webbrowser
+import json
 import speech_recognition as sr
 from services import speak as sp
 
-r = sr.Recognizer()
+with open('.\\.\\config.json', 'r') as config:
+    data = json.load(config)
+    config.close()
+WAKE = data['wake']
 
-def there_exists(terms):
+def there_exists(terms, query):
     for term in terms:
         if term in query:
             return True
 
 def record_audio(ask = False):
+    r = sr.Recognizer()
     with sr.Microphone() as source:
         if ask:
-            sp.watson_speak(ask)
+            sp.speak(ask)
         audio = r.listen(source)
         query = ''
         try:
-            query = r.recognize_google(audio, language='it-IT')
-        except sr.UnknownValueError:
-            sp.watson_speak('Spiacente Signore, non ho capito bene.')
+            query = r.recognize_google(audio)
         except sr.RequestError:
-            sp.watson_speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
+            sp.speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
+        except Exception as e:
+            print(str(e))
         return query.lower()
 
+from commands.misc import name
+from commands.utils import time, search
 def respond(query):
-    if 'come ti chiami' in query:
-        sp.watson_speak('Mi chiamo Jarvis')
-    if 'che ore sono' in query:
-        strTime = datetime.datetime.now().strftime("%H:%M")
-        sp.watson_speak(f'sono le {strTime}')
-    if 'cerca' in query:
-        search = record_audio('Per cosa vorresti effettuare la ricerca?')
-        url = 'https://google.com/search?q=' + search
-        chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
-        webbrowser.get(chrome_path).open_new_tab(url)
-    if there_exists(['stop', 'exit', 'chiudi']):
+    if 'what is your name' in query:
+        name.name('Jarvis')
+    if 'what time is it' in query:
+        time.time('%H:%M')
+    if 'search' in query:
+        search.main(query)
+    if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
         exit()
 
-time.sleep(1)
-while 1:
+def singleCommandHandler():
+    print('Listening')
     query = record_audio()
+    print(query)
     respond(query)
+
+
+def bgCommandsHandler():
+    while True:
+        print('Listening')
+        audio = record_audio()
+        
+        if audio.count(WAKE) > 0:
+            sp.watson_speak('Hi Sir, how can i help you?')
+            query = record_audio()
+            print(query)
+            respond(query)

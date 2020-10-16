@@ -2,3 +2,4 @@
 .vscode/
 __pycache__/
 *.mp3
+!highway_to_hell.mp3
