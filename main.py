@@ -19,7 +19,7 @@ from commands import handler as hdl
 
 def main(mode):
     print("Jarvis, avvio in corso..")
-    wm.wishMe(TITLE)
+    wm.wishMe(config)
     if mode == 0:
         hdl.singleCommandHandler()
     if mode == 1:
