@@ -2,7 +2,8 @@ import json
 from tkinter import *
 from PIL import ImageTk, Image
 
-from services.wakeupJ import wakeupJarvis
+from services.wakeupJarvis import wakeupJarvis
+from services.shutdownJarvis import shutdownJarvis
 
 with open('config.json', 'r') as data:
     config = json.load(data)
@@ -38,7 +39,7 @@ bottomSection.columnconfigure(1, weight=1)
 
 wakeButton = Button(bottomSection, text='Wake up Jarvis', command= lambda: wakeupJarvis(bodySection, config))
 wakeButton.grid(row=0, column=0)
-exitButton = Button(bottomSection, text='Shutdown Jarvis')
+exitButton = Button(bottomSection, text='Shutdown Jarvis', command= lambda: shutdownJarvis(bodySection, config))
 exitButton.grid(row=0, column=1)
 
 #Main
