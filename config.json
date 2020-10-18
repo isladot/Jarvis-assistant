@@ -1,5 +1,7 @@
 {
     "wake": "jarvis",
     "title": "Sir",
-    "master": "Luca"
+    "master": "Luca",
+    "wakeupMusic": 1,
+    "startupMusic": 1
 }

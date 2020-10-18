@@ -11,13 +11,9 @@ import webbrowser
 
 from services import speak as sp, wishme as wm
 
-with open('config.json', 'r') as config:
-    data = json.load(config)
-    config.close()
-
-WAKE = data['wake']
-TITLE = data['title']
-MASTER = data['master']
+with open('config.json', 'r') as data:
+    config = json.load(data)
+    data.close()
 
 from commands import handler as hdl
 
