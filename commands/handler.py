@@ -21,8 +21,6 @@ def record_audio(ask = False):
         query = ''
         try:
             query = r.recognize_google(audio)
-        except sr.RequestError:
-            sp.speak('Spiacente Signore, i miei sistemi non funzionano correttamente.')
         except Exception as e:
             print(str(e))
         return query.lower()
@@ -35,7 +33,8 @@ def respond(query):
     if 'what time is it' in query:
         time.time('%H:%M')
     if 'search' in query:
-        search.main(query)
+        response = search.main(query)
+        return response
     if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
         exit()

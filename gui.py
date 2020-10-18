@@ -3,6 +3,7 @@ from tkinter import *
 from PIL import ImageTk, Image
 
 from services.wakeupJarvis import wakeupJarvis
+from commands.asktoJarvis import asktoJarvis
 from services.shutdownJarvis import shutdownJarvis
 from services.configMusics import updateStartUpValue, updateWakeUpValue
 
@@ -29,19 +30,23 @@ programStartup = Checkbutton(headerSection, text='Wakeup Music', variable=progra
 programStartup.grid(row=0, column=1)
 
 #Body section
-bodySection = LabelFrame(root)
-bodySection.pack(fill='both', expand='yes')
+logSection = LabelFrame(root)
+logSection.pack(fill='both', expand='yes')
 
 #Bottom bottons section.
 bottomSection = LabelFrame(root, pady=10)
 bottomSection.pack(fill='x', side='bottom')
 bottomSection.columnconfigure(0, weight=1)
 bottomSection.columnconfigure(1, weight=1)
+bottomSection.columnconfigure(2, weight=1)
 
-wakeButton = Button(bottomSection, text='Wake up Jarvis', command= lambda: wakeupJarvis(bodySection, config))
+
+wakeButton = Button(bottomSection, text='Wake up Jarvis', padx=20,  command= lambda: wakeupJarvis(logSection, config))
 wakeButton.grid(row=0, column=0)
-exitButton = Button(bottomSection, text='Shutdown Jarvis', command= lambda: shutdownJarvis(bodySection, config))
-exitButton.grid(row=0, column=1)
+askButton = Button(bottomSection, text='Ask to Jarvis', padx=20, command= lambda: asktoJarvis(logSection, config))
+askButton.grid(row=0, column=1)
+exitButton = Button(bottomSection, text='Shutdown Jarvis', padx=20, command= lambda: shutdownJarvis(logSection, config))
+exitButton.grid(row=0, column=2)
 
 #Main
 root.mainloop()
