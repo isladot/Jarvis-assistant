@@ -1,7 +1,1 @@
-{
-    "wake": "jarvis",
-    "title": "Sir",
-    "master": "Luca",
-    "wakeupMusic": 1,
-    "startupMusic": 1
-}
+{"wake": "jarvis", "title": "Sir", "master": "Luca", "wakeupMusic": 1, "startupMusic": 1}

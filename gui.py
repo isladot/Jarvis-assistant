@@ -4,6 +4,7 @@ from PIL import ImageTk, Image
 
 from services.wakeupJarvis import wakeupJarvis
 from services.shutdownJarvis import shutdownJarvis
+from services.configMusics import updateStartUpValue, updateWakeUpValue
 
 with open('config.json', 'r') as data:
     config = json.load(data)
@@ -16,15 +17,15 @@ root.geometry('700x500')
 root.resizable(False, False)
 
 #Header checkboxes section.
-pcStartupV = IntVar()
-programStartupV = IntVar()
-
 headerSection = LabelFrame(root)
 headerSection.pack(fill='x', side='top')
 
-pcStartup = Checkbutton(headerSection, text='PC Startup Music', variable=pcStartupV)
+pcStartupV = IntVar(headerSection, config['startupMusic'])
+programStartupV = IntVar(headerSection, config['wakeupMusic'])
+
+pcStartup = Checkbutton(headerSection, text='PC Startup Music', variable=pcStartupV, command= lambda: updateStartUpValue(pcStartupV, config))
 pcStartup.grid(row=0, column=0)
-programStartup = Checkbutton(headerSection, text='Wakeup Music', variable=programStartupV)
+programStartup = Checkbutton(headerSection, text='Wakeup Music', variable=programStartupV, command= lambda: updateWakeUpValue(programStartupV, config))
 programStartup.grid(row=0, column=1)
 
 #Body section
