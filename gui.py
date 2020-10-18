@@ -17,36 +17,50 @@ root.iconphoto(False, PhotoImage(file='D:/GitHubRepositories/jarvis/gui/assets/i
 root.geometry('700x500')
 root.resizable(False, False)
 
-#Header checkboxes section.
+#Header section declaration.
 headerSection = LabelFrame(root)
 headerSection.pack(fill='x', side='top')
-
-pcStartupV = IntVar(headerSection, config['startupMusic'])
-programStartupV = IntVar(headerSection, config['wakeupMusic'])
-
-pcStartup = Checkbutton(headerSection, text='PC Startup Music', variable=pcStartupV, command= lambda: updateStartUpValue(pcStartupV, config))
-pcStartup.grid(row=0, column=0)
-programStartup = Checkbutton(headerSection, text='Wakeup Music', variable=programStartupV, command= lambda: updateWakeUpValue(programStartupV, config))
-programStartup.grid(row=0, column=1)
-
-#Body section
+headerSection.columnconfigure(0, weight=1)
+headerSection.columnconfigure(1, weight=1)
+headerSection.columnconfigure(2, weight=1)
+#Log section declaration.
 logSection = LabelFrame(root)
 logSection.pack(fill='both', expand='yes')
-
-#Bottom bottons section.
+#Bottom section declaration.
 bottomSection = LabelFrame(root, pady=10)
 bottomSection.pack(fill='x', side='bottom')
 bottomSection.columnconfigure(0, weight=1)
 bottomSection.columnconfigure(1, weight=1)
 bottomSection.columnconfigure(2, weight=1)
 
+##Header section configuration.
+#Checkbox + related variable for startupMusic config parameter.
+pcStartupV = IntVar(headerSection, config['startupMusic'])
+pcStartup = Checkbutton(headerSection, text='PC Startup Music', anchor=W, variable=pcStartupV, command= lambda: updateStartUpValue(pcStartupV, config))
+pcStartup.grid(row=0, column=0, sticky=W+E)
+#Checkbox + related variable for wakeupMusic config parameter.
+programStartupV = IntVar(headerSection, config['wakeupMusic'])
+programStartup = Checkbutton(headerSection, text='Wakeup Music', anchor=W, variable=programStartupV, command= lambda: updateWakeUpValue(programStartupV, config))
+programStartup.grid(row=0, column=1, sticky=W+E)
+#Button to clear log section.
+def clearLogs():
+    for widget in logSection.winfo_children():
+        widget.destroy()
+clearlogButton = Button(headerSection, text='Clear Logs', command= clearLogs)
+clearlogButton.grid(row=0, column=2, sticky=W+E)
 
-wakeButton = Button(bottomSection, text='Wake up Jarvis', padx=20,  command= lambda: wakeupJarvis(logSection, config))
-wakeButton.grid(row=0, column=0)
-askButton = Button(bottomSection, text='Ask to Jarvis', padx=20, command= lambda: asktoJarvis(logSection, config))
-askButton.grid(row=0, column=1)
-exitButton = Button(bottomSection, text='Shutdown Jarvis', padx=20, command= lambda: shutdownJarvis(logSection, config))
-exitButton.grid(row=0, column=2)
+##Log section configuration.
+
+##Bottom section configuration.
+#Button to Wake up Jarvis.
+wakeButton = Button(bottomSection, text='Wake up Jarvis',  command= lambda: wakeupJarvis(logSection, config))
+wakeButton.grid(row=0, column=0, sticky=W+E, padx=20)
+#Button to Ask to Jarvis something.
+askButton = Button(bottomSection, text='Ask to Jarvis', command= lambda: asktoJarvis(logSection, config))
+askButton.grid(row=0, column=1, sticky=W+E, padx=20)
+#Button to Kill Jarvis.
+exitButton = Button(bottomSection, text='Shutdown Jarvis', command= lambda: shutdownJarvis(logSection, config))
+exitButton.grid(row=0, column=2, sticky=W+E, padx=20)
 
 #Main
 root.mainloop()
