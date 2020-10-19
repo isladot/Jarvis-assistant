@@ -1,4 +1,5 @@
 import json
+import asyncio
 from tkinter import *
 from PIL import ImageTk, Image
 
@@ -56,7 +57,7 @@ clearlogButton.grid(row=0, column=2, sticky=W+E)
 wakeButton = Button(bottomSection, text='Wake up Jarvis',  command= lambda: wakeupJarvis(logSection, config))
 wakeButton.grid(row=0, column=0, sticky=W+E, padx=20)
 #Button to Ask to Jarvis something.
-askButton = Button(bottomSection, text='Ask to Jarvis', command= lambda: asktoJarvis(logSection, config))
+askButton = Button(bottomSection, text='Ask to Jarvis', command= lambda: asyncio.run(asktoJarvis(logSection, config)))
 askButton.grid(row=0, column=1, sticky=W+E, padx=20)
 #Button to Kill Jarvis.
 exitButton = Button(bottomSection, text='Shutdown Jarvis', command= lambda: shutdownJarvis(logSection, config))

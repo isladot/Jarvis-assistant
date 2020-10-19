@@ -1,5 +1,6 @@
 from services import speak as sp
 from commands.handler import record_audio
+import time
 import webbrowser
 import re
 
@@ -34,7 +35,7 @@ SEARCH_PATTERN = {
     re.compile("search on stackoverflow for [\w\s]+") : lambda kw: stackoverflowSearch(kw)
 }
 
-def main(query):
+async def main(query):
     for pattern, func in SEARCH_PATTERN.items():
         if pattern.match(query):
             kw = query.split('for ').pop()
