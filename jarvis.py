@@ -3,10 +3,10 @@ import asyncio
 from tkinter import *
 from PIL import ImageTk, Image
 
-from services.wakeupJarvis import wakeupJarvis
-from commands.asktoJarvis import asktoJarvis
-from services.shutdownJarvis import shutdownJarvis
-from services.configMusics import updateStartUpValue, updateWakeUpValue
+from commands.gui.asktoJarvis import asktoJarvis
+from gui.wakeupJarvis import wakeupJarvis
+from gui.shutdownJarvis import shutdownJarvis
+from gui.configMusics import updateStartUpValue, updateWakeUpValue
 
 with open('config.json', 'r') as data:
     config = json.load(data)
