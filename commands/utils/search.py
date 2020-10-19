@@ -1,10 +1,10 @@
-from services import speak as sp
-from commands.handler import record_audio
 import time
 import webbrowser
 import re
+from services import speak as sp
+from commands.handler import record_audio
 
-def googleSearch(kw):
+async def googleSearch(kw):
     url = 'https://google.com/search?q=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
@@ -12,7 +12,7 @@ def googleSearch(kw):
     sp.speak(response)
     return response
 
-def youtubeSearch(kw):
+async def youtubeSearch(kw):
     url = 'https://www.youtube.com/results?search_query=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
@@ -20,7 +20,7 @@ def youtubeSearch(kw):
     sp.speak(response)
     return response
 
-def stackoverflowSearch(kw):
+async def stackoverflowSearch(kw):
     url = 'https://stackoverflow.com/search?q=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
@@ -39,6 +39,6 @@ async def main(query):
     for pattern, func in SEARCH_PATTERN.items():
         if pattern.match(query):
             kw = query.split('for ').pop()
-            response = func(kw)
+            response = await func(kw)
             return response
             break

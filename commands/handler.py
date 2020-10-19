@@ -1,4 +1,5 @@
 import json
+import asyncio
 import speech_recognition as sr
 from services import speak as sp
 
@@ -27,13 +28,13 @@ def record_audio(ask = False):
 
 from commands.misc import name
 from commands.utils import time, search
-def respond(query):
+async def respond(query):
     if 'what is your name' in query:
         name.name('Jarvis')
     if 'what time is it' in query:
         time.time('%H:%M')
     if 'search' in query:
-        response = search.main(query)
+        response = await search.main(query)
         return response
     if there_exists(['exit', 'stop'], query):
         sp.watson_speak('Goodbye Sir.')
