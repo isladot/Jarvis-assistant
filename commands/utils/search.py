@@ -4,9 +4,10 @@ import re
 from services import speak as sp
 from commands.handler import record_audio
 
+chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
+
 async def googleSearch(kw):
     url = 'https://google.com/search?q=' + kw
-    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
     response = 'These are the results on Google for ' + kw
     sp.speak(response)
@@ -14,7 +15,6 @@ async def googleSearch(kw):
 
 async def youtubeSearch(kw):
     url = 'https://www.youtube.com/results?search_query=' + kw
-    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
     response = 'These are the results on YouTube for ' + kw
     sp.speak(response)
@@ -22,7 +22,6 @@ async def youtubeSearch(kw):
 
 async def stackoverflowSearch(kw):
     url = 'https://stackoverflow.com/search?q=' + kw
-    chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
     response = 'These are the results on Stackoverflow for ' + kw
     sp.speak(response)
