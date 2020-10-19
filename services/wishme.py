@@ -5,8 +5,6 @@ import time
 def wishMe(config):
     TITLE = config['title']
     if config['wakeupMusic'] == 1:
-        songs_dir = 'D:\\GitHubRepositories\\jarvis\\sounds'
-        wish_song = os.listdir(songs_dir)[0]
-        os.startfile(os.path.join(songs_dir, wish_song))
+        os.startfile('services\\sounds\\highway_to_hell.mp3')
     speak.watson_speak(f'Welcome home {TITLE}.')
     
