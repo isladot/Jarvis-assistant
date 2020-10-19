@@ -14,7 +14,7 @@ with open('config.json', 'r') as data:
 
 root = Tk()
 root.title('J.A.R.V.I.S. Personal Assistant - powered by islaDevs')
-root.iconphoto(False, PhotoImage(file='gui/assets/images/JARVIS.png'))
+root.iconphoto(False, PhotoImage(file='assets/images/JARVIS.png'))
 root.geometry('700x500')
 root.resizable(False, False)
 

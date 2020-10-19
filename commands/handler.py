@@ -3,11 +3,6 @@ import asyncio
 import speech_recognition as sr
 from services import speak as sp
 
-with open('.\\.\\config.json', 'r') as config:
-    data = json.load(config)
-    config.close()
-WAKE = data['wake']
-
 def there_exists(terms, query):
     for term in terms:
         if term in query:
@@ -40,14 +35,20 @@ async def respond(query):
         sp.watson_speak('Goodbye Sir.')
         exit()
 
+# -- RUNNING JARVIS BY TERMINAL SECTION --
+
 def singleCommandHandler():
     print('Listening')
     query = record_audio()
     print(query)
     respond(query)
 
-
 def bgCommandsHandler():
+    with open('.\\.\\config.json', 'r') as config:
+        data = json.load(config)
+        config.close()
+        
+    WAKE = data['wake']
     while True:
         print('Listening')
         audio = record_audio()
