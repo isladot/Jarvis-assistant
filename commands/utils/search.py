@@ -1,25 +1,32 @@
-from services import speak as sp
-from commands.handler import record_audio
+import time
 import webbrowser
 import re
+from services import speak as sp
+from commands.handler import record_audio
 
-def googleSearch(kw):
+async def googleSearch(kw):
     url = 'https://google.com/search?q=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
-    sp.speak('These are the results for ' + kw)
+    response = 'These are the results on Google for ' + kw
+    sp.speak(response)
+    return response
 
-def youtubeSearch(kw):
+async def youtubeSearch(kw):
     url = 'https://www.youtube.com/results?search_query=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
-    sp.speak('These are the results for ' + kw)
+    response = 'These are the results on YouTube for ' + kw
+    sp.speak(response)
+    return response
 
-def stackoverflowSearch(kw):
+async def stackoverflowSearch(kw):
     url = 'https://stackoverflow.com/search?q=' + kw
     chrome_path = 'C:/Program Files (x86)/Google/Chrome/Application/chrome.exe %s'
     webbrowser.get(chrome_path).open_new_tab(url)
-    sp.speak('These are the results for ' + kw)
+    response = 'These are the results on Stackoverflow for ' + kw
+    sp.speak(response)
+    return response
 
 
 SEARCH_PATTERN = {
@@ -28,9 +35,10 @@ SEARCH_PATTERN = {
     re.compile("search on stackoverflow for [\w\s]+") : lambda kw: stackoverflowSearch(kw)
 }
 
-def main(query):
+async def main(query):
     for pattern, func in SEARCH_PATTERN.items():
         if pattern.match(query):
             kw = query.split('for ').pop()
-            func(kw)
+            response = await func(kw)
+            return response
             break
