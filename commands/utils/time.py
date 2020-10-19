@@ -3,4 +3,4 @@ import datetime
 
 def time(format):
     strTime = datetime.datetime.now().strftime(format)
-    sp.speak(f'It\'s {strftime}')
+    sp.speak(f'It\'s {strTime}')
