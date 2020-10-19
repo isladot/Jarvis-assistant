@@ -1,0 +1,21 @@
+##Developing Modules
+python-dotenv #Python dedicated .env files module.
+
+##Text-to-Speech Modules
+gtts #Google Text-to-Speech.
+pyttsx3 #Python dedicated Text-to-Speech module.
+pywin32 #Windows internal dedicated Text-to-Speech module.
+ibm-watson #IBM dedicated Text-to-Speech module.
+
+##Speech-to-Text Module
+SpeechRecognition
+
+##Play Audio Modules
+playsound #Module to reproduce audio files.
+PyAudio #Dependence for playsound, maybe needs to be installed manually.
+
+##GUI Modules
+Pillow #Images utilities module.
+
+##External Services Modules
+wikipedia #Python dedicated Wikipedia module.
