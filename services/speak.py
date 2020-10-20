@@ -1,13 +1,20 @@
+import os
 import json
+import random
+import playsound
+
+#.env configuration.
+from dotenv import load_dotenv
+load_dotenv(dotenv_path='.\\.\\.env')
+
+API_KEY = os.getenv("IBM_WATSON_APIKEY")
+API_URL = os.getenv("IBM_WATSON_URL")
 
 #IBMWatson
 from ibm_watson import TextToSpeechV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
-authenticator = IAMAuthenticator('5_7y3FGks7xaExddpMMC859VZTDmS41LlNtgcdxv4Lqe')
-text_to_speech = TextToSpeechV1(
-    authenticator=authenticator
-)
-text_to_speech.set_service_url('https://api.eu-de.text-to-speech.watson.cloud.ibm.com/instances/3caa2a15-1544-4f9b-adc5-8337cc6139d6')
+text_to_speech = TextToSpeechV1(authenticator=IAMAuthenticator(API_KEY))
+text_to_speech.set_service_url(API_URL)
 def watson_speak(text):
     r = random.randint(1, 1000000)
     file_name = 'audio-' + str(r) + '.mp3'
@@ -31,9 +38,6 @@ def speak(text):
     engine.runAndWait()
 
 #GTTS
-import playsound
-import os
-import random
 from gtts import gTTS
 def google_speak(text):
     tts = gTTS(text=text, lang='en')

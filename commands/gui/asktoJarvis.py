@@ -13,5 +13,7 @@ async def asktoJarvis(logSection, config):
 async def commandOutputs(logSection):
     query = hdl.record_audio()
     response = await hdl.respond(query)
+    if response == None:
+        response = 'Sorry Sir, i didn\' understand pretty good.'
     logMessage = Label(logSection, text=response, padx=6, pady=2)
     logMessage.pack(anchor=W)
